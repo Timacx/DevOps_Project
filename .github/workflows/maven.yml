@@ -37,7 +37,6 @@ jobs:
         min-coverage-overall: 0 
         min-coverage-changed-files: 0 
     - name: Upload jacoco coverage despite the check result
-        if: ${{ always() }}
         uses: actions/upload-artifact@v2
         with:
           name: coverage-results-report
