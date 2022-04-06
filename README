@@ -1,5 +1,9 @@
 Project DevOps
 
+Installation :
+cd Project_DevOps
+mvn package
+
 
 Run with maven on linux :
 
