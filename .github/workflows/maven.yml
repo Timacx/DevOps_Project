@@ -37,8 +37,8 @@ jobs:
         min-coverage-overall: 0 
         min-coverage-changed-files: 0 
     - name: Upload jacoco coverage despite the check result
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-results-report
-          path: /Project_DevOps/target/site/jacoco/
-          if-no-files-found: error
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-results-report
+        path: /Project_DevOps/target/site/jacoco/
+        if-no-files-found: error
