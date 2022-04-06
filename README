@@ -1,1 +1,7 @@
 Project DevOps
+
+
+Run with maven on linux :
+
+mvn exec:java -Dexec.mainClass="package.class"
+
