@@ -1,14 +1,18 @@
+package demo;
+
+import java.util.ArrayList;
+
 public class Collumn<T> {
     
     private String label;
-    private T[] values;
+    private ArrayList<T> values;
 
-    Collumn(String lab, T[] data){
+    Collumn(String lab, ArrayList<T> data){
         this.values = data;
         this.label = lab;
     }
 
-    public T[] getValues() {
+    public ArrayList<T> getValues() {
         return values;
     }
 
