@@ -1,18 +1,34 @@
+package demo;
+
+import java.util.ArrayList;
+
 public class Collumn<T> {
     
     private String label;
-    private T[] values;
+    private ArrayList<T> values;
 
-    Collumn(String lab, T[] data){
+    Collumn(String lab, ArrayList<T> data){
         this.values = data;
-        this.label = lab;
+        this.setLabel(lab);
     }
 
-    public T[] getValues() {
+    Collumn(ArrayList<T> data){
+        this.values = data;
+    }
+
+    public ArrayList<T> getValues() {
         return values;
+    }
+
+    public void addValue(T value){
+        this.values.add(value);
     }
 
     public String getLabel() {
         return label;
+    }
+
+    public void setLabel(String lab) {
+        this.label = lab;
     }
 }
