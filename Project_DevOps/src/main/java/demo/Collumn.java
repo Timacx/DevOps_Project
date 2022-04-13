@@ -9,14 +9,26 @@ public class Collumn<T> {
 
     Collumn(String lab, ArrayList<T> data){
         this.values = data;
-        this.label = lab;
+        this.setLabel(lab);
+    }
+
+    Collumn(ArrayList<T> data){
+        this.values = data;
     }
 
     public ArrayList<T> getValues() {
         return values;
     }
 
+    public void addValue(T value){
+        this.values.add(value);
+    }
+
     public String getLabel() {
         return label;
+    }
+
+    public void setLabel(String lab) {
+        this.label = lab;
     }
 }
