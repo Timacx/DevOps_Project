@@ -129,11 +129,25 @@ public class DataFrame
         
     }
 
+    public void displayAll(){
+        int nb_ligne = ((Collumn<?>) dataFrame.get(0)).getValues().size();
+        int nb_col = dataFrame.size();
+
+        for(int i = 0; i < nb_ligne; i++)
+            System.out.printf("%-15s",((Collumn<?>) dataFrame.get(i)).getLabel());
+        System.out.println();
+
+        for(int i = 0; i < nb_ligne; i++){
+            for (int j = 0; j < nb_col; j++)
+                System.out.printf("%-15s", ((Collumn<?>) dataFrame.get(j)).getValues().get(i) );                            
+            System.out.println();
+        }
+    }
 
 
     public static void main( String[] args )
     {
-        DataFrame df = new DataFrame("file.csv");
+        // DataFrame df = new DataFrame("file.csv");
   
         ArrayList<Object> data = new ArrayList<Object>();
         String[] label = {"Manger", "Bouger", "Dormir"};
@@ -147,6 +161,7 @@ public class DataFrame
         data.add(dormir);
 
         DataFrame dataFrame = new DataFrame(data);
+        dataFrame.displayAll();
 
     }
 }
