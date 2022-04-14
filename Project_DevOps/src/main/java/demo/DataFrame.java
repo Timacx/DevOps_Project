@@ -133,7 +133,7 @@ public class DataFrame
         int nb_ligne = ((Collumn<?>) dataFrame.get(0)).getValues().size();
         int nb_col = dataFrame.size();
 
-        for(int i = 0; i < nb_ligne; i++)
+        for(int i = 0; i < nb_col; i++)
             System.out.printf("%-15s",((Collumn<?>) dataFrame.get(i)).getLabel());
         System.out.println();
 
