@@ -23,7 +23,12 @@ public class DataFrame
      */
 
     // Constructeur à partir d'un tableau
-    DataFrame( ArrayList<Object> strucList ){
+    DataFrame( ArrayList<Object> strucList, boolean typed ){
+
+        if(typed){
+            dataFrame = strucList;
+            return;
+        }
 
         ArrayList<Object> data = new ArrayList<Object>();
 
@@ -144,6 +149,29 @@ public class DataFrame
         }
     }
 
+    public DataFrame getDataFrameFromIndex(int... indexs){
+        ArrayList<Object> newDataFrame = dataFrame;
+        
+        
+        for (int i = 0; i < newDataFrame.size(); i++)
+            ((Collumn<?>) newDataFrame.get(i)).leaveOnly(indexs);
+                
+        return new DataFrame(newDataFrame, true);
+    }
+
+    public DataFrame getDataFrameFromCollumns(String... labels){
+        ArrayList<Object> newDataFrame = new ArrayList<Object>();
+        
+        for (String label : labels) 
+            for (int i = 0; i < dataFrame.size(); i++) 
+                if(((Collumn<?>) dataFrame.get(i)).getLabel().equals(label)){
+                    newDataFrame.add(dataFrame.get(i));
+                }
+                
+
+        return new DataFrame(newDataFrame, true);
+    }
+
 
     public static void main( String[] args )
     {
@@ -160,8 +188,18 @@ public class DataFrame
         data.add(bouger);
         data.add(dormir);
 
-        DataFrame dataFrame = new DataFrame(data);
+        DataFrame dataFrame = new DataFrame(data, false);
         dataFrame.displayAll();
+
+        System.out.println();
+
+        DataFrame dataFrame2 = dataFrame.getDataFrameFromCollumns("Manger", "Dormir");
+        dataFrame2.displayAll();
+
+        System.out.println();
+
+        DataFrame dataFrame3 = dataFrame2.getDataFrameFromIndex(1, 0);
+        dataFrame3.displayAll();
 
     }
 }

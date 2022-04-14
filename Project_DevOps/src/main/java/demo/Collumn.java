@@ -24,6 +24,16 @@ public class Collumn<T> {
         this.values.add(value);
     }
 
+    public void leaveOnly(int... indexs){
+        ArrayList<T> newValues = new ArrayList<T>();
+
+        for (int ind : indexs) 
+            newValues.add(values.get(ind));
+
+        values = newValues;
+        
+    }
+
     public String getLabel() {
         return label;
     }
