@@ -77,8 +77,6 @@ public class DataFrame
             e.printStackTrace();
         }
         
-        List<String[] > data = new ArrayList<String[] >(AllLine.size());
-
         String[] type = new String[0];
 
         // parcours des lignes
@@ -130,6 +128,53 @@ public class DataFrame
     }
 
 
+    public void displayFirstLignes(){
+        if(this.dataFrame.size() > 1){
+            int size = 3;
+            int nbLignes = ((Collumn<?>) this.dataFrame.get(0)).getValues().size();
+            int nb_col = dataFrame.size();
+            if(nbLignes < 3)
+                size = nbLignes;
+            
+            // affiche les label en haut
+            for(int i = 0; i<nb_col; i++)
+                System.out.printf("%-15s",((Collumn<?>) dataFrame.get(i)).getLabel());
+            System.out.println();
+            
+            // affiche le contenu des données
+            for(int i = 0; i < size; i++){
+                for (int j = 0; j < nb_col; j++)
+                    System.out.printf("%-15s", ((Collumn<?>) dataFrame.get(j)).getValues().get(i) );                            
+                System.out.println();
+            }
+            
+        }
+    }
+
+
+    public void displayLastLignes(){
+        if(this.dataFrame.size() > 1){
+            int nbLignes = ((Collumn<?>) this.dataFrame.get(0)).getValues().size();
+            int size = nbLignes-3;
+            int nb_col = dataFrame.size();
+            if(nbLignes < 3)
+                size = 0;
+            
+            // affiche les label en haut
+            for(int i = 0; i<nb_col; i++)
+                System.out.printf("%-15s",((Collumn<?>) dataFrame.get(i)).getLabel());
+            System.out.println();
+            
+            // affiche le contenu des données
+            for(int i = size; i < nbLignes; i++){
+                for (int j = 0; j < nb_col; j++)
+                    System.out.printf("%-15s", ((Collumn<?>) dataFrame.get(j)).getValues().get(i) );                            
+                System.out.println();
+            }
+            
+        }
+    }
+
 
     public static void main( String[] args )
     {
@@ -147,6 +192,16 @@ public class DataFrame
         data.add(dormir);
 
         DataFrame dataFrame = new DataFrame(data);
+
+        df.displayFirstLignes();
+        System.out.println();
+        df.displayLastLignes();
+
+
+        System.out.println();
+        dataFrame.displayFirstLignes();
+        System.out.println();
+        dataFrame.displayLastLignes();
 
     }
 }
