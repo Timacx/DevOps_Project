@@ -6,12 +6,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.lang.model.type.ArrayType;
+
 import java.util.Arrays;
 
 public class DataFrame
 {
 
-    ArrayList<Object> dataFrame;
+    private ArrayList<Object> dataFrame;
 
     /**
      * @param strucList
@@ -132,6 +135,10 @@ public class DataFrame
         
     }
 
+    public ArrayList<Object> getDataFrame(){
+        return dataFrame;
+    }
+
     public void displayAll(){
         int nb_ligne = ((Collumn<?>) dataFrame.get(0)).getValues().size();
         int nb_col = dataFrame.size();
@@ -229,6 +236,19 @@ public class DataFrame
         }
     }
 
+    public boolean equals(DataFrame dataFrameParam){
+        ArrayList<Object> data = dataFrameParam.getDataFrame();
+        if(! (this.dataFrame.size() == data.size()) )
+            return false;
+        
+
+        for (int i = 0; i < data.size(); i++) {
+            if(! ( ( (Collumn<?>) dataFrame.get(i) ).equals(( (Collumn<?>) data.get(i)) ) ) )
+                return false;
+        }
+        return true;
+    }
+
 
     public static void main( String[] args )
     {
@@ -246,6 +266,7 @@ public class DataFrame
         data.add(dormir);
 
         DataFrame dataFrame = new DataFrame(data, false);
+
         dataFrame.displayAll();
 
         System.out.println();
@@ -269,10 +290,9 @@ public class DataFrame
         // df.displayLastLignes();
 
 
-        // System.out.println();
-        // dataFrame.displayFirstLignes();
-        // System.out.println();
-        // dataFrame.displayLastLignes();
-
+        System.out.println();
+        dataFrame.displayFirstLignes();
+        System.out.println();
+        dataFrame.displayLastLignes();
     }
 }

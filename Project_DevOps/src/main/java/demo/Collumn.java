@@ -82,4 +82,14 @@ public class Collumn<T extends Comparable<T>> {
         }
         return ret;
     }
+
+    public boolean equals(Collumn<?> collumn){
+        if(! this.label.equals(collumn.getLabel()))
+            return false;
+
+        if(! this.values.equals(collumn.getValues()))
+            return false;
+
+        return true;
+    }
 }
