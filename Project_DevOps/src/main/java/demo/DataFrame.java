@@ -136,10 +136,12 @@ public class DataFrame
         int nb_ligne = ((Collumn<?>) dataFrame.get(0)).getValues().size();
         int nb_col = dataFrame.size();
 
+        // Affichage des labels
         for(int i = 0; i < nb_col; i++)
             System.out.printf("%-15s",((Collumn<?>) dataFrame.get(i)).getLabel());
         System.out.println();
 
+        // affichage du contenue
         for(int i = 0; i < nb_ligne; i++){
             for (int j = 0; j < nb_col; j++)
                 System.out.printf("%-15s", ((Collumn<?>) dataFrame.get(j)).getValues().get(i) );                            
@@ -148,11 +150,11 @@ public class DataFrame
     }
 
     public DataFrame getDataFrameFromIndex(int... indexs){
-        ArrayList<Object> newDataFrame = dataFrame;
+        ArrayList<Object> newDataFrame = new ArrayList<Object>();
         
         
-        for (int i = 0; i < newDataFrame.size(); i++)
-            ((Collumn<?>) newDataFrame.get(i)).leaveOnly(indexs);
+        for (int i = 0; i < dataFrame.size(); i++)
+            newDataFrame.add(((Collumn<?>)dataFrame.get(i)).leaveOnly(indexs));
                 
         return new DataFrame(newDataFrame, true);
     }
@@ -168,6 +170,16 @@ public class DataFrame
                 
 
         return new DataFrame(newDataFrame, true);
+    }
+
+    public <T extends Comparable<T>> DataFrame getDataFrameFromBooleanIndexing(String label, String comp ,T value){        
+        for (int i = 0; i < dataFrame.size(); i++)
+            if(((Collumn<?>) dataFrame.get(i)).getLabel().equals(label)){
+                int[] indexs = ((Collumn<T>) dataFrame.get(i)).getIndex(comp, value);
+                return getDataFrameFromIndex(indexs);
+            }
+
+        return this;
     }
 
     public void displayFirstLignes(){
@@ -241,20 +253,26 @@ public class DataFrame
         DataFrame dataFrame2 = dataFrame.getDataFrameFromCollumns("Manger", "Dormir");
         dataFrame2.displayAll();
 
-        System.out.println();
-
-        DataFrame dataFrame3 = dataFrame2.getDataFrameFromIndex(1, 0);
+        int[] p = {1};
+        DataFrame dataFrame3 = dataFrame2.getDataFrameFromIndex(p);
         dataFrame3.displayAll();
 
-        df.displayFirstLignes();
-        System.out.println();
-        df.displayLastLignes();
+        DataFrame dataFrame4 = dataFrame.getDataFrameFromBooleanIndexing("Bouger", ">=", 30);
+        dataFrame4.displayAll();
+
+        DataFrame dataFrame5 = dataFrame.getDataFrameFromBooleanIndexing("Dormir", ">=", 500);
+        dataFrame5.displayAll();
 
 
-        System.out.println();
-        dataFrame.displayFirstLignes();
-        System.out.println();
-        dataFrame.displayLastLignes();
+        // df.displayFirstLignes();
+        // System.out.println();
+        // df.displayLastLignes();
+
+
+        // System.out.println();
+        // dataFrame.displayFirstLignes();
+        // System.out.println();
+        // dataFrame.displayLastLignes();
 
     }
 }

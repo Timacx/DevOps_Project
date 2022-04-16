@@ -2,17 +2,17 @@ package demo;
 
 import java.util.ArrayList;
 
-public class Collumn<T> {
-    
+public class Collumn<T extends Comparable<T>> {
+
     private String label;
     private ArrayList<T> values;
 
-    Collumn(String lab, ArrayList<T> data){
+    Collumn(String lab, ArrayList<T> data) {
         this.values = data;
         this.setLabel(lab);
     }
 
-    Collumn(ArrayList<T> data){
+    Collumn(ArrayList<T> data) {
         this.values = data;
     }
 
@@ -20,18 +20,51 @@ public class Collumn<T> {
         return values;
     }
 
-    public void addValue(T value){
+    public void addValue(T value) {
         this.values.add(value);
     }
 
-    public void leaveOnly(int... indexs){
+    public Collumn<T> leaveOnly(int... indexs) {
         ArrayList<T> newValues = new ArrayList<T>();
 
-        for (int ind : indexs) 
+        for (int ind : indexs)
             newValues.add(values.get(ind));
 
-        values = newValues;
-        
+        return new Collumn<T>(label, newValues);
+
+    }
+
+    public int[] getIndex(String comp, T value) {
+        ArrayList<Integer> indexs = new ArrayList<Integer>();
+
+        if (comp.equals(">")) {
+            for (int i = 0; i < values.size(); i++)
+                if (values.get(i).compareTo(value) > 0)
+                    indexs.add(i);
+        }
+        if (comp.equals(">=")) {
+            for (int i = 0; i < values.size(); i++)
+                if (values.get(i).compareTo(value) >= 0)
+                    indexs.add(i);
+        }
+        if (comp.equals("<")) {
+            for (int i = 0; i < values.size(); i++)
+                if (values.get(i).compareTo(value) < 0)
+                    indexs.add(i);
+        }
+        if (comp.equals("<=")) {
+            for (int i = 0; i < values.size(); i++)
+                if (values.get(i).compareTo(value) <= 0)
+                    indexs.add(i);
+
+        }
+        if (comp.equals("=")) {
+            for (int i = 0; i < values.size(); i++)
+                if (values.get(i).compareTo(value) == 0)
+                    indexs.add(i);
+        }
+
+        return convertIntegers(indexs);
     }
 
     public String getLabel() {
@@ -40,5 +73,13 @@ public class Collumn<T> {
 
     public void setLabel(String lab) {
         this.label = lab;
+    }
+
+    public static int[] convertIntegers(ArrayList<Integer> integers) {
+        int[] ret = new int[integers.size()];
+        for (int i = 0; i < ret.length; i++) {
+            ret[i] = integers.get(i).intValue();
+        }
+        return ret;
     }
 }
