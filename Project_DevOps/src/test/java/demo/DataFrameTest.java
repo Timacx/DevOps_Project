@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -20,20 +21,32 @@ public class DataFrameTest {
 
     String[] label = { "Fruits", "Prix/Kg", "Calories" };
     String[] Fruits = { "Pomme", "Poire", "Fraise", "Orange", "Banane", "Framboise", "Peche", "Abricots" };
-    Double[] Prix = { 3.56, 5.78, 10.09, 2.5, 2.5, 15.89, 5.11, 0.99 };
+    Double[] Prix = { 3.56, 5.78, 10.0, 2.5, 2.5, 15.89, 5.11, 0.99 };
     Double[] Calories = { 200.7, 298.0, 900.7, 98.0, 678.0, 67.9, 987.0, 1999.98 };
 
     String[] Fruits2 = { "Fraise", "Framboise" };
-    Double[] Prix2 = { 10.09, 15.89 };
+    Double[] Prix2 = { 10.0, 15.89 };
     Double[] Calories2 = { 900.7, 67.9 };
 
     String[] label3 = { "Fruits", "Prix/Kg" };
     String[] Fruits3 = { "Pomme", "Poire", "Fraise", "Orange", "Banane", "Framboise", "Peche", "Abricots" };
-    Double[] Prix3 = { 3.56, 5.78, 10.09, 2.5, 2.5, 15.89, 5.11, 0.99 };
+    Double[] Prix3 = { 3.56, 5.78, 10.0, 2.5, 2.5, 15.89, 5.11, 0.99 };
 
     String[] Fruits4 = { "Pomme", "Poire", "Orange", "Banane", "Peche", "Abricots" };
     Double[] Prix4 = { 3.56, 5.78, 2.5, 2.5, 5.11, 0.99 };
     Double[] Calories4 = { 200.7, 298.0, 98.0, 678.0, 987.0, 1999.98 };
+
+    String[] Fruits5 = { "Pomme", "Poire", "Fraise", "Orange", "Banane", "Peche", "Abricots" };
+    Double[] Prix5 = { 3.56, 5.78, 10.0, 2.5, 2.5, 5.11, 0.99 };
+    Double[] Calories5 = { 200.7, 298.0, 900.7, 98.0, 678.0, 987.0, 1999.98 };
+
+    String[] Fruits6 = {"Framboise"};
+    Double[] Prix6 = {15.89};
+    Double[] Calories6 = {67.9};
+
+    String[] Fruits7 = {"Pomme"};
+    Double[] Prix7 = {3.56};
+    Double[] Calories7 = {200.7};
 
     @BeforeEach
     public void setUpStreams() {
@@ -60,6 +73,53 @@ public class DataFrameTest {
 
         assertTrue(dataFrame.equals(dataFrame2));
 
+    }
+
+    @Test
+    public void testEqualsCSV() {
+
+        DataFrame dataFrame = new DataFrame("file.csv");
+        DataFrame dataFrame2 = new DataFrame("file.csv");
+
+        assertTrue(dataFrame.equals(dataFrame2));
+    }
+
+    @Test
+    public void testNotEquals() {
+
+        ArrayList<Object> data = new ArrayList<Object>();
+
+        data.add(label);
+        data.add(Fruits);
+        data.add(Prix);
+        DataFrame dataFrame = new DataFrame(data, false);
+        
+        data.add(Calories);
+        DataFrame dataFrame2 = new DataFrame(data, false);
+
+        assertFalse(dataFrame.equals(dataFrame2));
+    }
+
+    @Test
+    public void testNotEquals2() {
+
+        ArrayList<Object> data = new ArrayList<Object>();
+        ArrayList<Object> data2 = new ArrayList<Object>();
+
+
+        data.add(label);
+        data.add(Fruits);
+        data.add(Prix);
+
+        data2.add(label);
+        data2.add(Fruits);
+        data2.add(Calories);
+
+
+        DataFrame dataFrame = new DataFrame(data, false);
+        DataFrame dataFrame2 = new DataFrame(data2, false);
+
+        assertFalse(dataFrame.equals(dataFrame2));
     }
 
     @Test
@@ -125,6 +185,94 @@ public class DataFrameTest {
         data4.add(Calories4);
 
         assertTrue(newDataFrame.equals(new DataFrame(data4, false)));
+    }
+
+    @Test
+    public void testDataFromBooleanIndexing2() {
+        ArrayList<Object> data = new ArrayList<Object>();
+
+        data.add(label);
+        data.add(Fruits);
+        data.add(Prix);
+        data.add(Calories);
+
+        DataFrame dataFrame = new DataFrame(data, false);
+
+        DataFrame newDataFrame = dataFrame.getDataFrameFromBooleanIndexing("Prix/Kg", "<=", 10.0);
+
+        ArrayList<Object> data5 = new ArrayList<Object>();
+        data5.add(label);
+        data5.add(Fruits5);
+        data5.add(Prix5);
+        data5.add(Calories5);
+
+        assertTrue(newDataFrame.equals(new DataFrame(data5, false)));
+    }
+    
+    @Test
+    public void testDataFromBooleanIndexing3() {
+        ArrayList<Object> data = new ArrayList<Object>();
+
+        data.add(label);
+        data.add(Fruits);
+        data.add(Prix);
+        data.add(Calories);
+
+        DataFrame dataFrame = new DataFrame(data, false);
+
+        DataFrame newDataFrame = dataFrame.getDataFrameFromBooleanIndexing("Prix/Kg", ">", 15.0);
+
+        ArrayList<Object> data6 = new ArrayList<Object>();
+        data6.add(label);
+        data6.add(Fruits6);
+        data6.add(Prix6);
+        data6.add(Calories6);
+
+        assertTrue(newDataFrame.equals(new DataFrame(data6, false)));
+    }
+
+    @Test
+    public void testDataFromBooleanIndexing4() {
+        ArrayList<Object> data = new ArrayList<Object>();
+
+        data.add(label);
+        data.add(Fruits);
+        data.add(Prix);
+        data.add(Calories);
+
+        DataFrame dataFrame = new DataFrame(data, false);
+
+        DataFrame newDataFrame = dataFrame.getDataFrameFromBooleanIndexing("Prix/Kg", ">=", 15.89);
+
+        ArrayList<Object> data7 = new ArrayList<Object>();
+        data7.add(label);
+        data7.add(Fruits6);
+        data7.add(Prix6);
+        data7.add(Calories6);
+
+        assertTrue(newDataFrame.equals(new DataFrame(data7, false)));
+    }
+
+    @Test
+    public void testDataFromBooleanIndexing5() {
+        ArrayList<Object> data = new ArrayList<Object>();
+
+        data.add(label);
+        data.add(Fruits);
+        data.add(Prix);
+        data.add(Calories);
+
+        DataFrame dataFrame = new DataFrame(data, false);
+
+        DataFrame newDataFrame = dataFrame.getDataFrameFromBooleanIndexing("Calories", "=", 200.7);
+
+        ArrayList<Object> data7 = new ArrayList<Object>();
+        data7.add(label);
+        data7.add(Fruits7);
+        data7.add(Prix7);
+        data7.add(Calories7);
+
+        assertTrue(newDataFrame.equals(new DataFrame(data7, false)));
     }
 
     @Test

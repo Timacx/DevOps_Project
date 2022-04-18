@@ -137,7 +137,7 @@ public class DataFrame {
     }
 
     public void displayAll() {
-        int nb_ligne = ((Collumn<?>) dataFrame.get(0)).getValues().size();
+
         int nb_col = dataFrame.size();
 
         String output = "";
@@ -149,16 +149,20 @@ public class DataFrame {
 
         // System.out.println();
         output += "\n";
+        
+        if(nb_col > 1){
+            int nb_ligne = ((Collumn<?>) dataFrame.get(0)).getValues().size();
+            
+            // affichage du contenue
+            for (int i = 0; i < nb_ligne; i++) {
+                for (int j = 0; j < nb_col; j++)
+                    // System.out.printf("%-15s", ((Collumn<?>) dataFrame.get(j)).getValues().get(i));
+                    output += String.format("%-15s", ((Collumn<?>) dataFrame.get(j)).getValues().get(i));
 
-        // affichage du contenue
-        for (int i = 0; i < nb_ligne; i++) {
-            for (int j = 0; j < nb_col; j++)
-                // System.out.printf("%-15s", ((Collumn<?>) dataFrame.get(j)).getValues().get(i));
-                output += String.format("%-15s", ((Collumn<?>) dataFrame.get(j)).getValues().get(i));
+                // System.out.println();
+                output += "\n";
 
-            // System.out.println();
-            output += "\n";
-
+            }
         }
         System.out.print(output);
     }
@@ -234,6 +238,7 @@ public class DataFrame {
             int nbLignes = ((Collumn<?>) this.dataFrame.get(0)).getValues().size();
             int size = nbLignes - 3;
             int nb_col = dataFrame.size();
+            
             if (nbLignes < 3)
                 size = 0;
 
@@ -277,45 +282,21 @@ public class DataFrame {
     }
 
     public static void main(String[] args) {
-        // DataFrame df = new DataFrame("file.csv");
 
-        ArrayList<Object> data = new ArrayList<Object>();
-        String[] label = { "Manger", "Bouger", "Dormir" };
-        String[] manger = { "Pomme", "Poire", "Fraise" };
-        Integer[] bouger = { 9, 89, 999 };
-        Integer[] dormir = { 456, 788, 0 };
+    //     ArrayList<Object> data = new ArrayList<Object>();
+    //     String[] label = { "Manger", "Bouger", "Dormir" };
+    //     String[] manger = { "Pomme", "Poire", "Fraise" };
+    //     Integer[] bouger = { 9, 89, 999 };
+    //     Integer[] dormir = { 456, 788, 0 };
 
-        data.add(label);
-        data.add(manger);
-        data.add(bouger);
-        data.add(dormir);
+    //     data.add(label);
+    //     // data.add(manger);
+    //     // data.add(bouger);
+    //     // data.add(dormir);
 
-        DataFrame dataFrame = new DataFrame(data, false);
+    //     DataFrame dataFrame = new DataFrame(data, false);
 
-        dataFrame.displayAll();
+    //     dataFrame.displayAll();
 
-        System.out.println();
-
-        DataFrame dataFrame2 = dataFrame.getDataFrameFromCollumns("Manger", "Dormir");
-        dataFrame2.displayAll();
-
-        int[] p = { 1 };
-        DataFrame dataFrame3 = dataFrame2.getDataFrameFromIndex(p);
-        dataFrame3.displayAll();
-
-        DataFrame dataFrame4 = dataFrame.getDataFrameFromBooleanIndexing("Bouger", ">=", 30);
-        dataFrame4.displayAll();
-
-        DataFrame dataFrame5 = dataFrame.getDataFrameFromBooleanIndexing("Dormir", ">=", 500);
-        dataFrame5.displayAll();
-
-        // df.displayFirstLignes();
-        // System.out.println();
-        // df.displayLastLignes();
-
-        // System.out.println();
-        // dataFrame.displayFirstLines();
-        // System.out.println();
-        // dataFrame.displayLastLines();
     }
 }
