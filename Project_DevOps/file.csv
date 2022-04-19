@@ -1,8 +1,8 @@
 Integer,String,String,Double
-Id,Prénom,Couleur,Age
+Id,Prenom,Couleur,Age
 1,Titi,Jaune,5.4
-2,Médor,Noir,10.3
-3,Pitié,Noir,5.0
+2,Medor,Noir,10.3
+3,Pitie,Noir,5.0
 4,Juju,Gris,5.2
 5,Vanille,Blanc,7.7
 6,Chocolat,Marron,12.1
