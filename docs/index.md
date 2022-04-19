@@ -1,4 +1,4 @@
-## Badges
+# Project DevOps
 
 ![Coverage](https://img.shields.io/badge/Coverage-97%25-green)
 ![jdk](https://img.shields.io/badge/jdk-17.0.1.12-blue)
@@ -11,6 +11,6 @@ cd Project_DevOps
 mvn package
 
 
-## Run with maven on linux :
+## Exécuter avec maven sur linux :
 
 mvn exec:java -Dexec.mainClass="package.class"
