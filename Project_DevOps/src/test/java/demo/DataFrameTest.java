@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -336,6 +337,78 @@ public class DataFrameTest {
         DataFrame dataFrame = new DataFrame(data, false);
         dataFrame.displayLastLines();
         assertEquals(output, outContent.toString());
+    }
+
+    @Test
+    public void testStatAverage(){
+        DataFrame dataFrame = new DataFrame("file.csv");
+
+        try {
+            assertTrue(dataFrame.average("Age")==8.27);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void testStatAverageException(){
+        DataFrame dataFrame = new DataFrame("file.csv");
+
+        assertThrows(Exception.class, ()->{
+            dataFrame.average("");
+        });
+
+        assertThrows(Exception.class, ()->{
+            dataFrame.average("Couleur");
+        });
+    }
+
+    @Test
+    public void testStatMin(){
+        DataFrame dataFrame = new DataFrame("file.csv");
+
+        try {
+            assertTrue((Double)dataFrame.minVal("Age")==1.6);
+            assertTrue(((String)dataFrame.minVal("Couleur")).equals("Blanc"));
+            assertTrue(((String)dataFrame.minVal("Prenom")).equals("Chocolat"));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testStatMinException(){
+        DataFrame dataFrame = new DataFrame("file.csv");
+
+        assertThrows(Exception.class, ()->{
+            dataFrame.minVal("");
+        });
+    }
+
+    @Test
+    public void testStatMax(){
+        DataFrame dataFrame = new DataFrame("file.csv");
+
+        try {
+            assertTrue((Double)dataFrame.maxVal("Age")==17.7);
+            assertTrue(((String)dataFrame.maxVal("Couleur")).equals("Roux"));
+            assertTrue(((String)dataFrame.maxVal("Prenom")).equals("Vanille"));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testStatMaxException(){
+        DataFrame dataFrame = new DataFrame("file.csv");
+
+        assertThrows(Exception.class, ()->{
+            dataFrame.maxVal("");
+        });
     }
 
 }

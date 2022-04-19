@@ -7,7 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.plaf.ColorUIResource;
+import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
+
 import java.util.Arrays;
+import java.util.Collections;
 
 public class DataFrame {
 
@@ -281,7 +285,106 @@ public class DataFrame {
         return true;
     }
 
+    // calcul la moyenne d'un colone de type int ou double
+    public double average(String labelCol) throws Exception{
+        double average = 0.0;
+        Collumn<?> collumn = null;
+        // parcours des labels
+        for (int i = 0; i < dataFrame.size(); i++)
+            // compare le label coutrant et le label qu'on recherche
+            if(labelCol.equals(((Collumn<?>) dataFrame.get(i)).getLabel())){
+                collumn = (Collumn<?>) dataFrame.get(i);
+                break;
+            }
+
+        if(collumn == null){
+            throw new Exception("Collumn not exist");
+        }
+
+        if(collumn.getValues().get(0).getClass() == String.class){
+            throw new Exception("Type of collumn is String");
+        }
+        // parcours de toutes les valeurs de la collone
+        for(int i=0; i<collumn.getValues().size(); i++){
+            average += Double.valueOf(String.valueOf(collumn.getValues().get(i)));
+        }
+
+        return average / collumn.getValues().size();
+    }
+
+    // récupérer la valeur la plus petite
+    public Object minVal(String labelCol) throws Exception{
+        Collumn<?> collumn = null;
+        // parcours des labels
+        for (int i = 0; i < dataFrame.size(); i++)
+            // compare le label coutrant et le label qu'on recherche
+            if(labelCol.equals(((Collumn<?>) dataFrame.get(i)).getLabel())){
+                collumn = (Collumn<?>) dataFrame.get(i);
+                break;
+            }
+        if(collumn == null){
+            throw new Exception("Collumn not exist");
+        }
+            
+        return Collections.min(collumn.getValues());
+    }
+
+    // récupérer la valeur la plus grande
+    public Object maxVal(String labelCol) throws Exception{
+        Collumn<?> collumn = null;
+        // parcours des labels
+        for (int i = 0; i < dataFrame.size(); i++)
+            // compare le label coutrant et le label qu'on recherche
+            if(labelCol.equals(((Collumn<?>) dataFrame.get(i)).getLabel())){
+                collumn = (Collumn<?>) dataFrame.get(i);
+                break;
+            }
+        if(collumn == null){
+            throw new Exception("Collumn not exist");
+        }
+        return Collections.max(collumn.getValues());
+    }
+
+
+
     public static void main(String[] args) {
+
+        // DataFrame df = new DataFrame("file.csv");
+
+        // try {            
+        //     System.out.println(df.average("Age"));
+        //     System.out.println(df.average("Id"));
+        //     System.out.println(df.average("Couleur"));
+        // } catch (Exception e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
+
+        // try {
+        //     System.out.println(df.average(""));
+        // } catch (Exception e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
+          
+        // try {
+        //     System.out.println(df.minVal("Age"));
+        //     System.out.println(df.minVal("Id"));
+        //     System.out.println(df.minVal("Couleur"));
+        //     System.out.println(df.minVal("Prenom"));
+    
+        //     System.out.println(df.maxVal("Age"));
+        //     System.out.println(df.maxVal("Id"));
+        //     System.out.println(df.maxVal("Couleur"));
+        //     System.out.println(df.maxVal("Prenom"));
+        //     System.out.println(df.maxVal(""));
+        // } catch (Exception e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
+        
+
+        
 
     //     ArrayList<Object> data = new ArrayList<Object>();
     //     String[] label = { "Manger", "Bouger", "Dormir" };
