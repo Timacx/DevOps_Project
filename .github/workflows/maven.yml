@@ -5,9 +5,13 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - develop
   pull_request:
-    branches: [ master ]
+    branches: 
+      - master
+      - develop
 
 jobs:
   build:
@@ -24,4 +28,18 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file Project_DevOps/pom.xml
-      # run : echo "toto"
+    - name: Add coverage to PR
+      id: jacoco
+      uses: madrapps/jacoco-report@v1.2
+      with:
+        paths: ${{ github.workspace }}/Project_DevOps/target/site/jacoco/jacoco.xml
+        token: ${{ secrets.GITHUB_TOKEN }}
+        min-coverage-overall: 0 
+        min-coverage-changed-files: 0 
+    - name: Upload jacoco coverage despite the check result
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-results-report
+        path: Project_DevOps/target/site/jacoco/
+        if-no-files-found: error

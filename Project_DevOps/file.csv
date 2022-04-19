@@ -1,0 +1,12 @@
+Integer,String,String,Double
+Id,Prenom,Couleur,Age
+1,Titi,Jaune,5.4
+2,Medor,Noir,10.3
+3,Pitie,Noir,5.0
+4,Juju,Gris,5.2
+5,Vanille,Blanc,7.7
+6,Chocolat,Marron,12.1
+7,Milou,Blanc,3.3
+8,Idefix,Blanc,14.4
+9,Pluto,Jaune,17.7
+10,Dingo,Roux,1.6
