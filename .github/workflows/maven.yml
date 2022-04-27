@@ -40,7 +40,7 @@ jobs:
     #     min-coverage-changed-files: 0 
     - name: Generate Jacoco Badge
       id: jacoco
-      uses: Project_DevOps/cicirello/jacoco-badge-generator@v2
+      uses: cicirello/jacoco-badge-generator@v2
       with:
         generate-branches-badge: true
     - name: Upload jacoco coverage despite the check result
