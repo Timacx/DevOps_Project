@@ -1,7 +1,7 @@
 # Project DevOps
 
-![Coverage](../.github/badges/jacoco.svg)
-![branches](../.github/badges/branches.svg)
+![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Timacx/DevOps_Project/master/.github/badges/jacoco.json)
+![branches](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Timacx/DevOps_Project/master/.github/badges/branches.json)
 ![jdk](https://img.shields.io/badge/jdk-17.0.1.12-blue)
 ![maven](https://img.shields.io/badge/maven-4.0.0-blue)
 ![jacoco](https://img.shields.io/badge/jacoco-0.8.2-blue)

@@ -12,7 +12,6 @@ on:
     branches: 
       - master
       - develop
-
 jobs:
   build:
 
@@ -28,19 +27,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file Project_DevOps/pom.xml
-    # - name: Add coverage to PR
-    #   id: jacoco
-    #   uses: madrapps/jacoco-report@v1.2
-    #   with:
-    #     paths: ${{ github.workspace }}/Project_DevOps/target/site/jacoco/jacoco.xml
-    #     token: ${{ secrets.GITHUB_TOKEN }}
-    #     min-coverage-overall: 0 
-    #     min-coverage-changed-files: 0 
-    # - name: Checkout badges branch dedicated to storing badges only
-    #   uses: actions/checkout@v3
-    #   with:
-    #     ref: badges
-    #     path: badges
+      
     - name: Generate Jacoco Badge
       id: jacoco
       uses: cicirello/jacoco-badge-generator@v2
@@ -48,6 +35,8 @@ jobs:
         badges-directory: .github/badges
         jacoco-csv-file: Project_DevOps/target/site/jacoco/jacoco.csv
         generate-branches-badge: true
+        generate-coverage-endpoint: true
+        generate-branches-endpoint: true
 
     - name: Commit the badge (if it changed)
       run: |
