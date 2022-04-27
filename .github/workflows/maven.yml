@@ -8,10 +8,12 @@ on:
     branches:
       - master
       - develop
+      - TestCodeBadge
   pull_request:
     branches: 
       - master
       - develop
+      - TestCodeBadge
 
 jobs:
   build:
@@ -28,14 +30,19 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file Project_DevOps/pom.xml
-    - name: Add coverage to PR
+    # - name: Add coverage to PR
+    #   id: jacoco
+    #   uses: madrapps/jacoco-report@v1.2
+    #   with:
+    #     paths: ${{ github.workspace }}/Project_DevOps/target/site/jacoco/jacoco.xml
+    #     token: ${{ secrets.GITHUB_TOKEN }}
+    #     min-coverage-overall: 0 
+    #     min-coverage-changed-files: 0 
+    - name: Generate Jacoco Badge
       id: jacoco
-      uses: madrapps/jacoco-report@v1.2
+      uses: cicirello/jacoco-badge-generator@v2
       with:
-        paths: ${{ github.workspace }}/Project_DevOps/target/site/jacoco/jacoco.xml
-        token: ${{ secrets.GITHUB_TOKEN }}
-        min-coverage-overall: 0 
-        min-coverage-changed-files: 0 
+        generate-branches-badge: true
     - name: Upload jacoco coverage despite the check result
       if: ${{ always() }}
       uses: actions/upload-artifact@v2
