@@ -8,11 +8,12 @@ on:
     branches:
       - master
       - develop
+      - fixBugWeb
   pull_request:
     branches: 
       - master
       - develop
-
+      - fixBugWeb
 jobs:
   build:
 
@@ -48,6 +49,8 @@ jobs:
         badges-directory: .github/badges
         jacoco-csv-file: Project_DevOps/target/site/jacoco/jacoco.csv
         generate-branches-badge: true
+        generate-coverage-endpoint: true
+        generate-branches-endpoint: true
 
     - name: Commit the badge (if it changed)
       run: |
