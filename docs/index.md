@@ -1,6 +1,7 @@
 # Project DevOps
 
-![Coverage](https://img.shields.io/badge/Coverage-97%25-green)
+![Coverage](.github/badges/jacoco.svg)
+![branches](.github/badges/branches.svg)
 ![jdk](https://img.shields.io/badge/jdk-17.0.1.12-blue)
 ![maven](https://img.shields.io/badge/maven-4.0.0-blue)
 ![jacoco](https://img.shields.io/badge/jacoco-0.8.2-blue)
