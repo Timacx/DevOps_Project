@@ -38,16 +38,11 @@ jobs:
     #     token: ${{ secrets.GITHUB_TOKEN }}
     #     min-coverage-overall: 0 
     #     min-coverage-changed-files: 0 
-    - name: Checkout badges branch dedicated to storing badges only
-      uses: actions/checkout@v3
-      with:
-        ref: badges
-        path: badges
+
     - name: Generate Jacoco Badge
       id: jacoco
       uses: cicirello/jacoco-badge-generator@v2
       with:
-        badges-directory: badges
         path: Project_DevOps/target/site/jacoco/jacoco.csv
         generate-branches-badge: true
     - name: Upload jacoco coverage despite the check result
