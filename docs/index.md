@@ -6,6 +6,40 @@
 ![jacoco](https://img.shields.io/badge/jacoco-0.8.2-blue)
 ![junit](https://img.shields.io/badge/junit-3.8.1-blue)
 
+## Fonctionnalités :
+
+# Constructeurs de DataFrame :
+
+'DataFrame(ArrayList<Object> strucList, boolean typed)'
+
+Constructeur de DataFrame depuis une ArrayListe, avec la première ligne contenant les labels, puis toutes les lignes suivantes contiennent les données, avec un type par ligne.
+
+Le boolean ici specifie si notre ArrayListe est déjà typé.
+
+
+'DataFrame(String fileName)'
+
+Ce deuxième constructeur permet à partir d'un fivhier csv, de créer notre DataFrame.
+
+# Affichage :
+
+Nous disposons de trois méthodes d'affichage, 'displayAll', 'displayFirstLines', et 'displayLastLines', qui vont respectivement afficher toute la DataFrame, seulement les première lignes, ou les dernière lignes.
+
+# Selection :
+
+Nous disposons de trois méthodes de selection :
+    - 'getDataFrameFromIndex' : Obtenir un sous-ensemble de lignes à partir de leur index
+    - 'getDataFrameFromCollumns' : Obtenir un sous-ensemble de colonnes  à partir de leur labels
+    - 'getDataFrameFromBooleanIndexing' : Obtenir un sous-ensemble en triant sur une les donnée d'une collonne
+
+# Statistique :
+
+Nous disposons également de trois méthodes de statistique :
+    - 'average' : Obtenir la moyenne d'une colonne de type 'int' ou 'double', sinon une exception
+    - 'minVal' : Obtenir la plus petite valeur sur les types 'in' et 'double', sinon la 'string' ayant le plus petit code ASCII (ex Abc < abc)
+    - 'maxVal' : Obtenir la plus grande valeur sur les types 'in' et 'double', sinon la 'string' ayant le plus grand code ASCII (ex Zxy > Yz)
+
+
 ## Installation :
 cd Project_DevOps
 mvn package
